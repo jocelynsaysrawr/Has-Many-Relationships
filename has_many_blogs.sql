@@ -15,19 +15,20 @@ CREATE TABLE users (
 DROP TABLE IF EXISTS posts;
 CREATE TABLE posts (
     post_id SERIAL NOT NULL PRIMARY KEY,
-    user_id INTEGER REFERENCES users(user_id),
     title VARCHAR(180) DEFAULT NULL,
     url VARCHAR(510) DEFAULT NULL,
     content text DEFAULT NULL,
     created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
-    updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
+    updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
+    user_id INTEGER REFERENCES users(user_id)
 );
 DROP TABLE IF EXISTS comments;
 CREATE TABLE comments (
     comment_id SERIAL NOT NULL PRIMARY KEY,
-    user_id INTEGER REFERENCES users(user_id),
-    post_id INTEGER REFERENCES posts(post_id),
     body VARCHAR(510) DEFAULT NULL,
     created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
-    updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
+    updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
+    user_id INTEGER REFERENCES users(user_id),
+    post_id INTEGER REFERENCES posts(post_id)
 );
+\i scripts/blog_data.sql;
