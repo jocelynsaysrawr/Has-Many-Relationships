@@ -63,3 +63,15 @@ FROM comments
 JOIN users USING (user_id)
 JOIN posts USING (post_id)
 WHERE (comments.body LIKE '%SSL%' OR comments.body LIKE '%firewall%') AND posts.content LIKE '%nemo%';
+
+--Additional Queries
+--1
+SELECT COUNT(comments.*) 
+FROM posts
+INNER JOIN comments USING (post_id)
+WHERE posts.created_at > timestamp '2015-07-14';
+--2
+SELECT DISTINCT users.username
+FROM comments
+INNER JOIN users USING (user_id)
+WHERE comments.body LIKE '%programming%';
